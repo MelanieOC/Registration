@@ -5,8 +5,8 @@ class Model {
     this.input = null;
   }
   addInvite(text) {
-    this.players.push(text);
-    text.value = '';
+    this.invitees.push(text);
+    this.input.value = '';
     this.notify();
   }
   removeInvite(text) {
@@ -37,8 +37,13 @@ const Application = ({ model }) => {
       <header>
         <h1>RSVP</h1>
         <p> Registration App </p>
-        <form id="registrar">
-          <input type="text" name="name" placeholder="Invite Someone" />
+        <form id="registrar"
+          onSubmit={e => {
+            e.preventDefault();
+            model.addInvite(model.input.value);
+          }}
+        >
+          <input type="text" name="name" placeholder="Invite Someone" onChange={e => (model.input = e.target)} />
           <button type="submit" name="submit" value="submit">Submit</button>
         </form>
       </header>
