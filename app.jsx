@@ -1,7 +1,7 @@
 
 class Model {
   constructor() {
-    this.invitees = [];
+    this.invitees = ['hola', 'maria'];
     this.inputValue = null;
   }
   addInvite(text) {
@@ -14,11 +14,8 @@ class Model {
     this.notify();
   }
   removeInvite(text) {
-    this.invitees = this.invitees.filter(item => item !== todo);
+    this.invitees = this.invitees.filter(item => item != text);
     this.notify();
-  }
-  totalPoints() {
-    return this.players.map(item => item.score).reduce((total, item) => total + item);
   }
   subscribe(render) {
     this.render = render;
@@ -28,29 +25,16 @@ class Model {
   }
 }
 
-const CreateLi = ({ text }) => {
+const CreateLi = ({ text, model }) => {
   return (
-    <li>
+    <li key={Utils.uuid()}>
       {text}
       <label>Confirmed<input type="checkbox" /></label>
-      <button>remove</button>
+      <button onClick={() => model.removeInvite(text)}>remove</button>
     </li>
   );
 }
-/*function createLI(text) {
-  const li = document.createElement('li');
-  li.textContent = text;
-  const label = document.createElement('label');
-  label.textContent = 'Confirmed';
-  const checkbox = document.createElement('input');
-  checkbox.type = 'checkbox';
-  label.appendChild(checkbox);
-  li.appendChild(label);
-  const button = document.createElement('button');
-  button.textContent = 'remove';
-  li.appendChild(button);
-  return li;
-}*/
+
 const Application = ({ model }) => {
   return (
     <div className="wrapper">
@@ -65,7 +49,7 @@ const Application = ({ model }) => {
       <div className="main">
         <h2>Invitees</h2>
         <ul id="invitedList">
-          <CreateLi text={'hola'} />
+          {model.invitees.map(item => <CreateLi text={item} model={model} />)}
         </ul>
       </div>
     </div>
@@ -81,5 +65,5 @@ let render = () => {
   );
 };
 
-//model.subscribe(render);
+model.subscribe(render);
 render(); 
