@@ -2,15 +2,11 @@
 class Model {
   constructor() {
     this.invitees = ['hola', 'maria'];
-    this.inputValue = null;
+    this.input = null;
   }
   addInvite(text) {
     this.players.push(text);
     text.value = '';
-    this.notify();
-  }
-  decrease(player) {
-    player.score--;
     this.notify();
   }
   removeInvite(text) {
