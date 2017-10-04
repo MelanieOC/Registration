@@ -1,15 +1,11 @@
 
 class Model {
   constructor() {
-    this.players = null;
+    this.invitees = [];
     this.inputValue = null;
   }
-  addPlayer(text) {
-    this.players.push({
-      name: text.value,
-      score: 0,
-      id: this.players.length + 1
-    })
+  addInvite(text) {
+    this.players.push(text);
     text.value = '';
     this.notify();
   }
@@ -17,8 +13,8 @@ class Model {
     player.score--;
     this.notify();
   }
-  increase(player) {
-    player.score++;
+  removeInvite(text) {
+    this.invitees = this.invitees.filter(item => item !== todo);
     this.notify();
   }
   totalPoints() {
