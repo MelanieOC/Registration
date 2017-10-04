@@ -34,7 +34,7 @@ const CreateLi = ({ invite, model }) => {
   return (
     <li key={invite.id} className={invite.confirmed?'responded':''}>
       {invite.name}
-      <label>Confirmed<input type="checkbox" onChange={(e)=>model.isChecked(invite, e.target)}/></label>
+      <label>Confirmed<input type="checkbox" onChange={(e)=>model.isChecked(invite, e.target)} checked={invite.confirmed}/></label>
       <button onClick={() => model.removeInvite(invite)}>remove</button>
     </li>
   );
