@@ -3,14 +3,16 @@ class Model {
   constructor() {
     this.invitees = [];
     this.input = null;
-    this.check=null;
+    this.check = null;
   }
   addInvite(text) {
-    this.invitees.push({
-      name:text,
-      confirmed:false,
-      id:Utils.uuid()
-    });
+    if(text!=''){
+      this.invitees.push({
+        name: text,
+        confirmed: false,
+        id: Utils.uuid()
+      });
+    }
     this.input.value = '';
     this.notify();
   }
@@ -18,8 +20,8 @@ class Model {
     this.invitees = this.invitees.filter(item => item != text);
     this.notify();
   }
-  isChecked(invite,input){
-    invite.confirmed=input.checked;
+  isChecked(invite, input) {
+    invite.confirmed = input.checked;
     this.notify();
   }
   subscribe(render) {
@@ -32,9 +34,9 @@ class Model {
 
 const CreateLi = ({ invite, model }) => {
   return (
-    <li key={invite.id} className={invite.confirmed?'responded':''}>
+    <li className={invite.confirmed ? 'responded' : ''}>
       {invite.name}
-      <label>Confirmed<input type="checkbox" onChange={(e)=>model.isChecked(invite, e.target)} checked={invite.confirmed}/></label>
+      <label>Confirmed<input type="checkbox" onChange={(e) => model.isChecked(invite, e.target)} checked={invite.confirmed} /></label>
       <button onClick={() => model.removeInvite(invite)}>remove</button>
     </li>
   );
@@ -59,7 +61,7 @@ const Application = ({ model }) => {
       <div className="main">
         <h2>Invitees</h2>
         <ul id="invitedList">
-          {model.invitees.map(item => <CreateLi invite={item} model={model} />)}
+          {model.invitees.map(item => <CreateLi key={item.id} invite={item} model={model} />)}
         </ul>
       </div>
     </div>
